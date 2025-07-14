@@ -14,6 +14,9 @@ const GeneratePage = () => {
   // コピーボタンのUI機能
   const handleCopy = () => {
     setIsCopied(true);
+
+    navigator.clipboard.writeText(generatedCode);
+
     setTimeout(() => setIsCopied(false), 2000);
   };
 
@@ -113,3 +116,4 @@ const GeneratePage = () => {
 };
 
 export default GeneratePage;
+
