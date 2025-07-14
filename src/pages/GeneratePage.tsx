@@ -96,7 +96,7 @@ const GeneratePage = () => {
                 {isCopied ? 'コピーしました！' : 'コピー'}
               </button>
             </div>
-            <div className="flex-grow bg-gray-900 rounded-md">
+            <div className="flex-grow bg-gray-900 rounded-md overflow-scroll">
               {/* Prismを使用したシンタックスハイライト */}
               <Highlight
                 theme={themes.nightOwl}
@@ -104,7 +104,7 @@ const GeneratePage = () => {
                 language="jsx"
               >
                 {({style, tokens, getLineProps, getTokenProps }) => (
-                  <pre className="h-full p-4 overflow-scroll" style={{ ...style, backgroundColor: 'transparent' }}>
+                  <pre className="h-full p-4" style={{ ...style, backgroundColor: 'transparent' }}>
                     {tokens.map((line, i) => (
                       <div key={i} {...getLineProps({ line, key: i })}>
                         <span className="text-gray-500 inline-block w-8 select-none">{i + 1}</span>
