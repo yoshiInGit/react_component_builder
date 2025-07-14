@@ -7,17 +7,17 @@ const GeneratePage = () => {
   const prompt = useRef("");
   const [generatedCode, setGeneratedCode] = useState('// サンプルの生成されたReactコンポーネント\nimport React from "react";\n\nconst GeneratedButton = () => {\n  return (\n    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">\n      Click me\n    </button>\n  );\n};\n\nexport default GeneratedButton;');
 
-  // UI関連の状態（実際の機能は実装しない）
+  // UI関連の状態
   const [isGenerating, setIsGenerating] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
 
-  // コピーボタンのUI機能（実際のロジックは実装しない）
+  // コピーボタンのUI機能
   const handleCopy = () => {
     setIsCopied(true);
     setTimeout(() => setIsCopied(false), 2000);
   };
 
-  // 生成ボタンのUI機能（実際のロジックは実装しない）
+  // 生成ボタンのUI機能
   const handleGenerate = async () => {
     if (!prompt.current.trim()) return;
 
@@ -71,8 +71,9 @@ const GeneratePage = () => {
           <div className="p-4 flex-grow flex flex-col h-screen pb-20">
             <div className="flex justify-between items-center mb-2">
               <h2 className="text-lg font-semibold">生成されたコンポーネント</h2>
+              
               <button 
-                className={`px-3 py-1 text-sm rounded flex items-center gap-1 ${
+                className={`px-3 py-1 text-sm rounded flex items-center gap-1  cursor-pointer ${
                   isCopied 
                     ? 'bg-green-500 text-white' 
                     : 'bg-gray-200 hover:bg-gray-300'
@@ -83,7 +84,7 @@ const GeneratePage = () => {
                 {isCopied ? 'コピーしました！' : 'コピー'}
               </button>
             </div>
-            <div className="flex-grow bg-gray-900 rounded-md overflow-scroll">
+            <div className="flex-grow bg-gray-900 rounded-md">
               {/* Prismを使用したシンタックスハイライト */}
               <Highlight
                 theme={themes.nightOwl}
@@ -107,8 +108,6 @@ const GeneratePage = () => {
           </div>
         </div>
       </main>
-
-    
     </div>
   );
 };
