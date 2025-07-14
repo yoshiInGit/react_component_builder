@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import { Copy } from 'lucide-react';
 import { Highlight, themes } from 'prism-react-renderer';
 import { requestReactCode } from '../gemini/action';
+import Chip from './modules/Chip';
 
 const GeneratePage = () => {
   const prompt = useRef("");
@@ -49,6 +50,14 @@ const GeneratePage = () => {
         {/* 左カラム: プロンプト入力 */}
         <div className="w-1/3 border-r border-gray-200 flex flex-col bg-white">
           <div className="p-4 flex-grow flex flex-col">
+            <h2 className="text-lg font-semibold mb-2">テンプレート</h2>
+            <div className='w-full h-24 flex flex-wrap gap-2 overflow-y-scroll'>
+              <Chip label="Tailwind対応" onClose={() => {}} />
+              <Chip label="Typescript対応" onClose={() => {}} />
+
+
+            </div>
+
             <h2 className="text-lg font-semibold mb-2">プロンプト入力</h2>
             <textarea
               className="flex-grow p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none mb-4"
