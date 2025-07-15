@@ -44,6 +44,10 @@ const GeneratePage = () => {
         }
       }
     }
+
+    return () => {
+      setTemplates([]); // クリーンアップ処理（必要に応じて）
+    }
   }, []);
 
   // テンプレートチップの追加
