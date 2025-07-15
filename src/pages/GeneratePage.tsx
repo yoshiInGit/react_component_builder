@@ -9,6 +9,7 @@ import AddTemplateDialog from './modules/AddTemplateDialog';
 const GeneratePage = () => {
   // UI関連の状態
   const prompt = useRef("");
+  const promptTextAreaRef = useRef<HTMLTextAreaElement>(null);
   const [generatedCode, setGeneratedCode] = useState('// サンプルの生成されたReactコンポーネント\nimport React from "react";\n\nconst GeneratedButton = () => {\n  return (\n    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">\n      Click me\n    </button>\n  );\n};\n\nexport default GeneratedButton;');
   const [isGenerating, setIsGenerating] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
@@ -69,6 +70,13 @@ const GeneratePage = () => {
     localStorage.removeItem(`${TEMPLATE_ID_HEADER}-${id}`);
   }
 
+  // チップクリック時のプロンプト入力
+  const onChipClick = (description: string) => {
+    prompt.current = prompt.current + "\n" + description + "\n";
+    promptTextAreaRef.current!.value = prompt.current; // テキストエリアに値を設定
+    promptTextAreaRef.current!.focus(); // テキストエリアにフォーカスを当てる
+  }
+
 
   // 生成ボタンのUI機能
   const handleGenerate = async () => {
@@ -118,7 +126,8 @@ const GeneratePage = () => {
                 <Chip 
                   key={template.id} 
                   label={template.label} 
-                  onClose={() => removeTemplate(template.id)} 
+                  onClose={() => removeTemplate(template.id)}
+                  onClick={() => onChipClick(template.description)} 
                 />
               ))}
 
@@ -127,6 +136,7 @@ const GeneratePage = () => {
 
             <h2 className="text-lg font-semibold mb-2">プロンプト入力</h2>
             <textarea
+              ref={promptTextAreaRef}
               className="flex-grow p-3 border border-gray-300 rounded-md focus:ring-2 focus:ring-blue-500 focus:border-blue-500 resize-none mb-4"
               placeholder="作成したいコンポーネントの詳細を入力してください..."
               onChange={(e) => prompt.current = e.target.value}

@@ -4,11 +4,13 @@ import React from 'react';
 interface ChipProps {
   label: string;
   onClose?: () => void;
+  onClick?: () => void; // Optional click handler for the chip
 }
 
-const Chip: React.FC<ChipProps> = ({ label, onClose }) => {
+const Chip: React.FC<ChipProps> = ({ label, onClose, onClick }) => {
   return (
-    <div className="h-8 flex items-center rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-800 mr-2 cursor-pointer">
+    <div className="h-8 flex items-center rounded-full bg-gray-200 px-3 py-1 text-sm font-medium text-gray-800 mr-2 cursor-pointer"
+      onClick={onClick}> {/* Call the onClick handler if provided */}
       <span>{label}</span>
       {onClose && (
         <button
