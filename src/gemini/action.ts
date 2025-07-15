@@ -14,14 +14,38 @@ export const requestReactCode = async ({request} : {request : string}) => {
 
 const prompt = ({request} : {request : string}) => {
     return `
-以下の要件を満たすReactコンポーネントを作成して:
+あなたは熟練のフロントエンドエンジニアです。以下の要件に従ってReactコンポーネントを作成してください。
 
-###要件
+#要件
 ${request}
 
-###出力形式
+#出力形式
 - 出力するコードを <CODE> </CODE> で囲んで
 - 出力するコードはコードブロックで囲まず、純粋なテキスト形式で出力して
+
+<example>
+<CODE>
+import ...
+const Button = () => {..
+</CODE>
+
+<CODE>
+import React from "react";
+
+const GeneratedButton = () => {
+  return (
+    <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+      Click me
+    </button>
+  );
+};
+
+export default GeneratedButton;
+</CODE>
+
+
+</example>
+
 `
 }
 
