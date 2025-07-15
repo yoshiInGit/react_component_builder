@@ -5,6 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { requestReactCode } from '../gemini/action';
 import Chip from './modules/Chip';
 import AddTemplateDialog from './modules/AddTemplateDialog';
+import ConfirmDialog from './modules/CofirmDiaolg';
 
 const GeneratePage = () => {
   // UI関連の状態
@@ -14,6 +15,8 @@ const GeneratePage = () => {
   const [isGenerating, setIsGenerating] = useState(false);
   const [isCopied, setIsCopied] = useState(false);
   const [isAddTemplateDialogOpen, setIsAddTemplateDialogOpen] = useState(false);
+  const [deletingTemplate, setDeletingTemplate] = useState<Template | null>(null);
+  const [isConfirmDialogOpen, setIsConfirmDialogOpen] = useState(false);
 
   // テンプレートチップ関連
   type Template = {
@@ -126,7 +129,10 @@ const GeneratePage = () => {
                 <Chip 
                   key={template.id} 
                   label={template.label} 
-                  onClose={() => removeTemplate(template.id)}
+                  onClose={() => {
+                    setDeletingTemplate(template);
+                    setIsConfirmDialogOpen(true);
+                  }}
                   onClick={() => onChipClick(template.description)} 
                 />
               ))}
@@ -202,6 +208,20 @@ const GeneratePage = () => {
         isOpen={isAddTemplateDialogOpen} 
         onClose={() => {setIsAddTemplateDialogOpen(false)}}
         onSubmit={addTemplate}
+      />
+
+      {/* チップ削除確認ダイアログ */}
+      <ConfirmDialog
+        isOpen={isConfirmDialogOpen}
+        title="テンプレートの削除"
+        message="このテンプレートを削除しますか？"
+        onConfirm={() => {
+          if (deletingTemplate) {
+            removeTemplate(deletingTemplate.id);
+          }
+          setIsConfirmDialogOpen(false);
+        }}
+        onCancel={() => setIsConfirmDialogOpen(false)}
       />
     </div>
   );
